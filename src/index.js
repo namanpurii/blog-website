@@ -2,6 +2,7 @@ import express from "express"
 import { fileURLToPath } from "url"
 import path, {dirname} from "path"
 import blogRoute from "../routes/blog.js"
+import { mockBlogs } from "../data.js"
 
 const server = express()
 
@@ -17,7 +18,8 @@ server.set("views", path.join(__dirname, "..", "views"))
 server.use("/api/blog", blogRoute)
 
 server.get('/api/blogs', (req, res) =>{
-    res.render("index", {name: "Naman"}) //renders ../views/index.ejs
+    res.render("index", {mockBlogs: mockBlogs
+    }) //renders ../views/index.ejs
 })
 
 server.listen(port, ()=>{
