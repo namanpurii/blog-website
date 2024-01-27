@@ -3,9 +3,13 @@ const router = express.Router()
 
 router.use(express.json()) //to parse any incoming request as JSON -> JS Object
 
+router.get("/new", (req, res) => {
+  res.render("form");
+});
+
 router.get("/:blogId", (req, res) =>{
     const blogId = parseInt(req.params.blogId)
-    console.log(blogId)
+    // console.log(blogId)
     res.sendStatus(200)
 })
 
