@@ -1,11 +1,26 @@
 import express from "express"
-const router = express.Router()
+import Blog from "../models/blog.js";
 
+const router = express.Router()
 router.use(express.json()) //to parse any incoming request as JSON -> JS Object
 
 router.get("/new", (req, res) => {
   res.render("form");
 });
+
+router.post("/new", async (req, res) =>{
+    const blog = new Blog({
+        title: req.body.title,
+        description: req.body.description,
+        content: req.body.content,
+    })
+    try{
+        blog = await blog.save()
+        res.redirect(`http://localhost:3000/api/blog/${blog._id}`);
+    } catch(err) {
+        res.render("form", {blog: blog})
+    }
+})
 
 router.get("/:blogId", (req, res) =>{
     const blogId = parseInt(req.params.blogId)
@@ -21,8 +36,5 @@ router.put("/:blogId/edit", (req, res)=>{
     res.status(200).json({ msg: `The HTTP method is: ${req.method}` });
 })
 
-router.post("/new", (req, res) =>{
-    res.sendStatus(201)
-})
 
 export default router
