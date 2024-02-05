@@ -10,7 +10,8 @@ const server = express()
 const port = process.env.PORT || 3000 
 
 mongoose.connect(
-  "mongodb+srv://blog:<YOUR MONGO ATLAS URI GOES HERE>@cluster0.cjh9kwx.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://blog:password@cluster0.cjh9kwx.mongodb.net/?retryWrites=true&w=majority"
+  // this helps connect to your MongoAtlas Cloud Cluster.
 );
 
 const __filename = fileURLToPath(import.meta.url)
@@ -20,8 +21,8 @@ const __dirname = dirname(__filename)
 server.set("view engine", "ejs")
 server.set("views", path.join(__dirname, "..", "views"))
 
+server.use(express.urlencoded({ extended: false })) //generally there are errors with parsing post requests at the server-side. This middleware comes handy in that case.
 server.use("/api/blog", blogRoute)
-server.use(express.urlencoded({ extended: false }))
 
 server.get('/api/blogs', (req, res) =>{
     res.render("index", {mockBlogs: mockBlogs

@@ -9,15 +9,16 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", async (req, res) =>{
-    const blog = new Blog({
+    let blog = new Blog({
         title: req.body.title,
         description: req.body.description,
         content: req.body.content,
     })
     try{
-        blog = await blog.save()
+        blog = await blog.save() //saves to a collection you created in your MongoAtlas Dashboard.
         res.redirect(`http://localhost:3000/api/blog/${blog._id}`);
     } catch(err) {
+        console.log(err)
         res.render("form", {blog: blog})
     }
 })
