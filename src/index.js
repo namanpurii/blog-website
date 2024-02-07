@@ -27,7 +27,7 @@ server.use("/api/blog", blogRoute);
 
 server.get("/api/blogs", async (req, res) => {
   try {
-    const documents = await Blog.find({}).exec();
+    const documents = await Blog.find({}).sort({dop: -1});
     res.render("index", { documents: documents }); //renders ../views/index.ejs
   } catch (err) {
     console.error(err);
