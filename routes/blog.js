@@ -28,7 +28,7 @@ router.get("/:blogId", async (req, res) => {
   try {
     const document = await Blog.findById(blogId).exec();
     if (document) {
-      res.send(document);
+      res.render("blog", {document: document});
     } else {
       res.sendStatus(404);
     }

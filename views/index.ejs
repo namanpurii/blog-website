@@ -23,7 +23,7 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary fst-italic" style=>
                             <%= blog.dop.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
                         </h6>
-                        <p class="card-text"><%= blog.description.slice(0, 100)+"... " %><a class="card-link" style="cursor: pointer;">Read More</a></p>
+                        <p class="card-text"><%= blog.description.slice(0, 100)+"... " %><a class="card-link" style="cursor: pointer;" href="http://localhost:3000/api/blog/<%= blog._id %>">Read More</a></p>
                         <div class="text-end">
                             <button type="button" class="btn btn-primary">Edit</button>
                             <button type="button" class="btn btn-danger">Delete</button>  
