@@ -1,5 +1,6 @@
 import express from "express";
 import Blog from "../models/blog.js";
+import escape from "validator/lib/escape.js";
 
 const router = express.Router();
 router.use(express.json()); //to parse any incoming request as JSON -> JS Object
@@ -9,10 +10,11 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", async (req, res) => {
-  let blog = new Blog({
-    title: req.body.title,
-    description: req.body.description,
-    content: req.body.content,
+  let blog = new Blog({ 
+    //sanitize input entered by the user
+    title: escape(req.body.title), 
+    description: escape(req.body.description), 
+    content: escape(req.body.content), 
   });
   try {
     blog = await blog.save(); //saves to a collection you created in your MongoAtlas Dashboard.
