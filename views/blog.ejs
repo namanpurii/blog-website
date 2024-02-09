@@ -38,6 +38,13 @@
         >
           <%= document.content %>
         </p>
+        <div class="text-end">
+          <button type="button" class="btn btn-primary">Edit</button>
+          <button type="button" class="btn btn-danger" onclick="deleteFunc('<%= document._id %>')"> 
+            <!-- WARNING >>>> The blog id would be disclosed on the client side -->
+            Delete
+          </button>
+        </div>
       </div>
     </main>
     <%- include('footer'); %>
@@ -46,5 +53,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="/delete.js"></script> 
   </body>
 </html>

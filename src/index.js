@@ -24,6 +24,7 @@ server.set("views", path.join(__dirname, "..", "views"));
 
 server.use(express.urlencoded({ extended: false })); //generally there are errors with parsing post requests at the server-side. This middleware comes handy in that case.
 server.use("/api/blog", blogRoute);
+server.use(express.static(path.join(__dirname, "..", "public"))); //middleware to serve static files
 
 server.get("/api/blogs", async (req, res) => {
   try {

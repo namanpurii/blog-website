@@ -28,21 +28,25 @@ router.post("/new", async (req, res) => {
 router.get("/:blogId", async (req, res) => {
   const blogId = req.params.blogId
   try {
-    const document = await Blog.findById(blogId).exec();
-    if (document) {
-      res.render("blog", {document: document});
-    } else {
-      res.sendStatus(404);
-    }
+    var document = await Blog.findById(blogId).exec();
+    if (document) res.render("blog", {document: document});
   } catch (err) {
-    console.log("Failed retreiving documents" + err);
-    res.sendStatus(500);
+    console.log("Failed retreiving documents: " + err);
   }
-  // res.sendStatus(200);
+  if (!document) res.sendStatus(404);
 });
 
-router.delete("/:blogId/delete", (req, res) => {
-  res.status(200).json({ msg: `The HTTP method is: ${req.method}` });
+router.delete("/:blogId/delete", async (req, res) => {
+  const blogId = req.params.blogId;
+  try {
+    const result = await Blog.deleteOne({ _id: blogId });
+    // somehow express issues a delete request again for the redirect, luckily i found this stackoverflow post: https://stackoverflow.com/questions/24750169/expressjs-res-redirect-after-delete-request
+    //but the above post didnt help our case so we would be redirecting to /api/blogs on the client side
+    if (result.acknowledged) res.sendStatus(204);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 });
 
 router.put("/:blogId/edit", (req, res) => {
