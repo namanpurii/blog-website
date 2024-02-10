@@ -28,7 +28,7 @@ server.use(express.static(path.join(__dirname, "..", "public"))); //middleware t
 
 server.get("/api/blogs", async (req, res) => {
   try {
-    const documents = await Blog.find({}).sort({dop: -1});
+    const documents = await Blog.find({}).sort({createdAt: -1});
     res.render("index", { documents: documents }); //renders ../views/index.ejs
   } catch (err) {
     console.error(err);

@@ -14,14 +14,10 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  dop: {
-    type: Date,
-    default: Date.now,
-  },
   timetoread: {
     type: String,
   },
-});
+}, {timestamps: true});
 
 blogSchema.pre("save", function () {
   const content = this.content;

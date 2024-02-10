@@ -12,9 +12,9 @@ async function deleteFunc(blogId) {
       );
       if (res.ok) alert("The post was successfully deleted");
       else alert("Uh oh! There was an error deleting your post");
+      window.location.href = "http://localhost:3000/api/blogs"; 
     }
   } catch (err) {
     console.log(err);
   }
-  window.location.href = "http://localhost:3000/api/blogs"; 
 }

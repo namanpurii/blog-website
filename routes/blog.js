@@ -49,8 +49,29 @@ router.delete("/:blogId/delete", async (req, res) => {
   }
 });
 
-router.put("/:blogId/edit", (req, res) => {
-  res.status(200).json({ msg: `The HTTP method is: ${req.method}` });
+router.get("/:blogId/edit", async (req, res) => {
+  const blogId = req.params.blogId;
+  try{
+    var document = await Blog.findById(blogId).exec();
+    res.render("edit_form", {document: document});
+  } catch(err) {
+
+  }
+});
+
+router.put("/:blogId/edit", async (req, res) => {
+  const blogId = req.params.blogId;
+  // try {
+  //   const updatedDoc = await Blog.findOneAndUpdate(
+  //     { _id: blogId },
+  //     { new: true }
+  //   );
+  //   console.log(updatedDoc)
+    res.sendStatus(200)
+  // } catch (err) {
+  //   res.send(500)
+  //   console.log(err);
+  // }
 });
 
 export default router;

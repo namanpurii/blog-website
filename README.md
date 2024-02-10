@@ -36,10 +36,10 @@ MONGODB_URI=your_mongodb_atlas_connection_uri
 
 Replace `your_mongodb_atlas_connection_uri` with your MongoDB Atlas connection URI.
 
-### Run the Application
+### Run the Application by setting up nodemon
 
 ```bash
-node src/index
+npm run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) in your web browser to access the blog website.
