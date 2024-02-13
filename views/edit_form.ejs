@@ -29,7 +29,7 @@
               name="title"
               class="col-sm-10"
               placeholder="Enter blog title"
-              value=<%= document.title %>
+              value="<%= document.title %>"
             />
           </div>
           <div class="row mb-3 mx-auto">
@@ -42,7 +42,7 @@
               name="description"
               class="col-sm-10"
               placeholder="Enter blog description of about 30-40 words"
-              value=<%= document.description %>
+              value="<%= document.description %>"
             />
           </div>
           <div class="row mb-3 mx-auto" id="editor">
@@ -59,7 +59,7 @@
             ><%= document.content %></textarea>
           </div>
           <div class="text-end">
-            <button type="button" class="btn btn-primary" onclick="if(validateForm()) editFunc('<%= document._id %>')">Save Changes</button>
+            <button type="button" class="btn btn-primary" onclick="if(validateForm()) processForm('<%= document._id %>')">Save Changes</button>
           </div>
         </div>
       </form>
@@ -76,13 +76,22 @@
         var title = document.getElementById("title").value;
         var description = document.getElementById("description").value;
         var content = document.getElementById("content").value;
-
         // Checking if any field is empty
         if (title === "" || description === "" || content === "") {
           alert("Please fill in all the fields before submitting the form.");
           return false; // Prevent form submission
         }
         return true; // Allow form submission
+      }
+
+      function processForm(documentId) {
+        const updatedDocument = {
+          title : document.getElementById('title').value,
+          description : document.getElementById('description').value,
+          content : document.getElementById('content').value,
+          id: documentId,
+        }
+        editFunc(updatedDocument);
       }
     </script>
     <script src="/edit.js"></script>

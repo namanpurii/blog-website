@@ -53,25 +53,39 @@ router.get("/:blogId/edit", async (req, res) => {
   const blogId = req.params.blogId;
   try{
     var document = await Blog.findById(blogId).exec();
-    res.render("edit_form", {document: document});
+    if(document) res.render("edit_form", {document: document});
   } catch(err) {
-
+    console.log("Failed retreiving document" + err)
   }
+  if(!document) res.sendStatus(404)
 });
 
 router.put("/:blogId/edit", async (req, res) => {
-  const blogId = req.params.blogId;
-  // try {
-  //   const updatedDoc = await Blog.findOneAndUpdate(
-  //     { _id: blogId },
-  //     { new: true }
-  //   );
-  //   console.log(updatedDoc)
+  const blogId = req.body.id;
+  function calculateTimeToRead(content) {
+    let word_cnt = 0;
+    for (let i = 0; i < content.length; i++) {
+      if (content[i] === " ") word_cnt += 1;
+    }
+    let time = word_cnt / 200;
+    let mins = Math.floor(time);
+    let sec = Math.floor((time - mins) * 60);
+    return `${mins} min, ${sec} sec`;
+  }
+  const sanitisedRequestBody = {
+    title: escape(req.body.title),
+    description: escape(req.body.description),
+    content: escape(req.body.content),
+    timetoread: calculateTimeToRead(escape(req.body.content)),
+  }
+  try {
+    const updatedDoc = await Blog.findOneAndUpdate({ _id: blogId }, {$set: sanitisedRequestBody} ,{ new: true });
+    if(updatedDoc===null) throw new Error("Server had problem finding the document")
     res.sendStatus(200)
-  // } catch (err) {
-  //   res.send(500)
-  //   console.log(err);
-  // }
+  } catch (err) {
+    res.send(500)
+    console.log(err);
+  }
 });
 
 export default router;
