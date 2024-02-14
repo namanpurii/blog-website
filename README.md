@@ -27,14 +27,12 @@ npm install
 
 ### Configure Environment Variables
 
-Create a `.env` file in the root directory and set the following variables:
-
 ```plaintext
 PORT=3000  # Port on which the server will run
 MONGODB_URI=your_mongodb_atlas_connection_uri
 ```
 
-Replace `your_mongodb_atlas_connection_uri` with your MongoDB Atlas connection URI.
+Replace `your_mongodb_atlas_connection_uri` in `src/index.js` with your MongoDB Atlas connection URI.
 
 ### Run the Application by setting up nodemon
 
@@ -42,7 +40,7 @@ Replace `your_mongodb_atlas_connection_uri` with your MongoDB Atlas connection U
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) in your web browser to access the blog website.
+Visit [http://localhost:3000/api/blogs](http://localhost:3000/api/blogs) in your web browser to access the blog website.
 
 ## Features
 

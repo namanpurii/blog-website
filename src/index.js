@@ -11,7 +11,7 @@ const server = express();
 const port = process.env.PORT || 3000;
 
 mongoose.connect(
-  "mongodb+srv://blog:password@cluster0.cjh9kwx.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://blog:your_mongodb_atlas_connection_uri@cluster0.cjh9kwx.mongodb.net/?retryWrites=true&w=majority"
   // this helps connect to your MongoAtlas Cloud Cluster.
 );
 
